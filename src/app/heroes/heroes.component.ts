@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-heroes',
@@ -10,7 +11,10 @@ import { HeroService } from '../hero.service';
 export class HeroesComponent implements OnInit {
   // services injected must have @Injectable on them
   // constructor should be used for simple initilization , shouldn't do any actions
-  constructor(private heroService: HeroService) {}
+  constructor(
+    private heroService: HeroService,
+    private messageService: MessageService
+  ) {}
 
   // This is a lifecycle hook called shortly after creating the a component
   // put inilization 'doing' logic here
@@ -37,5 +41,6 @@ export class HeroesComponent implements OnInit {
    */
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
+    this.messageService.add(`HeroesComponent: Selected hero id=${hero.id}`);
   }
 }
