@@ -26,7 +26,9 @@ export class HeroesComponent implements OnInit {
    * Gets a list of heroes from the HeroService
    */
   getHeroes(): void {
-    this.heroes = this.heroService.getHeroes();
+    // now asynchronous and waits for the service to emit its values
+    // when it does we use the lambda heroesFromCall => thisComponentHeroes = heroesFromCall
+    this.heroService.getHeroes().subscribe((heores) => (this.heroes = heores));
   }
 
   /**
