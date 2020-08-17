@@ -28,4 +28,20 @@ export class HeroesComponent implements OnInit {
     // when it does we use the lambda heroesFromCall => thisComponentHeroes = heroesFromCall
     this.heroService.getHeroes().subscribe((heores) => (this.heroes = heores));
   }
+
+  add(name: string): void {
+    name = name.trim();
+    if (!name) {
+      return;
+    }
+    this.heroService
+      .addHero({ name } as Hero)
+      .subscribe((hero) => this.heroes.push(hero));
+  }
+
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter((h) => h !== hero);
+    // As a rule, an Observable does nothing until something subscribes.
+    this.heroService.deleteHero(hero).subscribe();
+  }
 }
